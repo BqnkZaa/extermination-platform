@@ -4,8 +4,10 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import ReviewForm from './ReviewForm';
 
-const testimonials = [
+// Fallback data in case of error or empty sheet
+const fallbackTestimonials = [
     {
         id: 1,
         name: 'คุณสมชาย วงศ์สวัสดิ์',
@@ -30,27 +32,36 @@ const testimonials = [
         text: 'ใช้บริการมาหลายครั้งแล้ว ทุกครั้งก็พอใจมาก โดยเฉพาะการรับประกันผลงาน',
         service: 'กำจัดปลวก + หนู',
     },
-    {
-        id: 4,
-        name: 'คุณนภา รักษาศีล',
-        location: 'จันทบุรี',
-        rating: 5,
-        text: 'บ้านมียุงเยอะมาก พอพ่นหมอกควันแล้วยุงลดลงชัดเจน ลูกๆ นอนหลับสบายขึ้น',
-        service: 'กำจัดยุง',
-    },
-    {
-        id: 5,
-        name: 'คุณประเสริฐ ธนากิจ',
-        location: 'ระยอง',
-        rating: 5,
-        text: 'ทีมงานมืออาชีพจริงๆ มาสำรวจก่อนทำงาน อธิบายขั้นตอนชัดเจน ราคาตรงตามที่ตกลง',
-        service: 'กำจัดปลวก',
-    },
 ];
 
 export default function Testimonials() {
+    const [testimonials, setTestimonials] = useState(fallbackTestimonials);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchReviews = async () => {
+            try {
+                const res = await fetch('/api/review');
+                if (!res.ok) throw new Error('Failed to fetch');
+                const data = await res.json();
+
+                // Only set if we actually got reviews back
+                if (data.reviews && data.reviews.length > 0) {
+                    // Reverse to show newest first
+                    setTestimonials(data.reviews.reverse());
+                }
+            } catch (error) {
+                console.error('Error fetching reviews:', error);
+                // Keep fallback data on error
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchReviews();
+    }, []);
 
     useEffect(() => {
         if (!isAutoPlaying) return;
@@ -60,7 +71,7 @@ export default function Testimonials() {
         }, 5000);
 
         return () => clearInterval(interval);
-    }, [isAutoPlaying]);
+    }, [isAutoPlaying, testimonials.length]);
 
     const handlePrev = () => {
         setIsAutoPlaying(false);
@@ -72,8 +83,12 @@ export default function Testimonials() {
         setCurrentIndex((prev) => (prev + 1) % testimonials.length);
     };
 
+    const [isReviewFormOpen, setIsReviewFormOpen] = useState(false);
+
     return (
-        <section className="py-16 lg:py-24 bg-white">
+        <section className="py-16 lg:py-24 bg-white relative">
+            <ReviewForm isOpen={isReviewFormOpen} onClose={() => setIsReviewFormOpen(false)} />
+
             <div className="container mx-auto px-4 lg:px-8">
                 {/* Section Header */}
                 <div className="text-center mb-12 lg:mb-16">
@@ -99,10 +114,24 @@ export default function Testimonials() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
-                        className="text-gray-500 text-lg max-w-2xl mx-auto"
+                        className="text-gray-500 text-lg max-w-2xl mx-auto mb-8"
                     >
                         ความพึงพอใจของลูกค้าคือความภาคภูมิใจของเรา
                     </motion.p>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.3 }}
+                    >
+                        <Button
+                            onClick={() => setIsReviewFormOpen(true)}
+                            className="bg-white border-2 border-orange-500 text-orange-600 hover:bg-orange-50 px-8 py-6 rounded-full text-lg font-semibold shadow-sm hover:shadow-md transition-all"
+                        >
+                            เขียนรีวิวของคุณ
+                        </Button>
+                    </motion.div>
                 </div>
 
                 {/* Testimonial Carousel */}
@@ -172,8 +201,8 @@ export default function Testimonials() {
                                         setCurrentIndex(index);
                                     }}
                                     className={`w-2.5 h-2.5 rounded-full transition-all ${index === currentIndex
-                                            ? 'bg-orange-500 w-8'
-                                            : 'bg-gray-300 hover:bg-gray-400'
+                                        ? 'bg-orange-500 w-8'
+                                        : 'bg-gray-300 hover:bg-gray-400'
                                         }`}
                                 />
                             ))}

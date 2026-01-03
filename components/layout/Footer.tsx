@@ -1,6 +1,9 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { Bug, Phone, Mail, MapPin, Clock, Facebook, Instagram } from 'lucide-react';
+import { useContactInfo } from '@/hooks/useContactInfo';
 
 const footerLinks = {
     services: [
@@ -22,6 +25,8 @@ const footerLinks = {
 };
 
 export default function Footer() {
+    const { contact } = useContactInfo();
+
     return (
         <footer className="bg-gradient-to-b from-gray-900 to-black text-white">
             {/* Main Footer */}
@@ -51,7 +56,7 @@ export default function Footer() {
                         {/* Social Links */}
                         <div className="flex gap-3">
                             <a
-                                href="https://facebook.com"
+                                href={contact.facebook_url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800 text-gray-400 hover:bg-orange-500 hover:text-white transition-all"
@@ -59,7 +64,7 @@ export default function Footer() {
                                 <Facebook className="h-5 w-5" />
                             </a>
                             <a
-                                href="https://instagram.com"
+                                href={contact.instagram_url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800 text-gray-400 hover:bg-orange-500 hover:text-white transition-all"
@@ -67,7 +72,7 @@ export default function Footer() {
                                 <Instagram className="h-5 w-5" />
                             </a>
                             <a
-                                href="https://line.me/ti/p/~rabbit-pest"
+                                href={contact.line_url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800 text-gray-400 hover:bg-green-500 hover:text-white transition-all"
@@ -132,8 +137,8 @@ export default function Footer() {
                                 </div>
                                 <div>
                                     <p className="text-gray-400 text-xs mb-1">โทรศัพท์</p>
-                                    <a href="tel:0891234567" className="text-white font-medium hover:text-orange-400 transition-colors">
-                                        089-123-4567
+                                    <a href={`tel:${contact.phone_call}`} className="text-white font-medium hover:text-orange-400 transition-colors">
+                                        {contact.phone_display}
                                     </a>
                                 </div>
                             </li>
@@ -143,8 +148,8 @@ export default function Footer() {
                                 </div>
                                 <div>
                                     <p className="text-gray-400 text-xs mb-1">อีเมล</p>
-                                    <a href="mailto:info@rabbitpestcontrol.net" className="text-white font-medium hover:text-orange-400 transition-colors text-sm">
-                                        info@rabbitpestcontrol.net
+                                    <a href={`mailto:${contact.email}`} className="text-white font-medium hover:text-orange-400 transition-colors text-sm">
+                                        {contact.email}
                                     </a>
                                 </div>
                             </li>
@@ -154,7 +159,7 @@ export default function Footer() {
                                 </div>
                                 <div>
                                     <p className="text-gray-400 text-xs mb-1">เวลาทำการ</p>
-                                    <p className="text-white font-medium">24 ชั่วโมง / 7 วัน</p>
+                                    <p className="text-white font-medium">{contact.open_time}</p>
                                 </div>
                             </li>
                         </ul>
