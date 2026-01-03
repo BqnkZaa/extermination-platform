@@ -45,7 +45,7 @@ const contactInfo = [
     {
         icon: MapPin,
         title: 'สำนักงาน',
-        value: 'จันทบุรี',
+        value: '5 ถนน รักศักดิ์ชมูล ตำบลวัดใหม่ อำเภอเมืองจันทบุรี จันทบุรี 22000',
         description: 'ให้บริการ จันทบุรี ตราด ระยอง',
     },
     {
@@ -367,7 +367,7 @@ export default function ContactPage() {
 
                     <div className="aspect-video max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-lg border border-gray-200">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d496588.5082929791!2d101.89839894257813!3d12.545837399999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3103d0e2bd6dbfd1%3A0x40223cf84d8e4e0!2sChanthaburi!5e0!3m2!1sen!2sth!4v1704264000000!5m2!1sen!2sth"
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1946.7362069260214!2d102.1134363!3d12.6169837!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310481810071db3f%3A0xdff20694d8c02713!2zNSDguJbguJnguJkg4Lij4Lix4LiB4Lio4Lix4LiB4LiU4Li04LmM4LiK4Lih4Li54LilIOC4leC4s-C4muC4peC4p-C4seC4lOC5g-C4q-C4oeC5iCDguK3guLPguYDguKDguK3guYDguKHguLfguK3guIfguIjguLHguJnguJfguJrguLjguKPguLUg4LiI4Lix4LiZ4LiX4Lia4Li44Lij4Li1IDIyMDAw!5e0!3m2!1sth!2sth!4v1767453010854!5m2!1sth!2sth"
                             width="100%"
                             height="100%"
                             style={{ border: 0 }}

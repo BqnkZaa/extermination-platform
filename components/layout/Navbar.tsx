@@ -71,7 +71,7 @@ export default function Navbar() {
             <Button className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transition-all" asChild>
               <a href="tel:0891234567">
                 <Phone className="w-4 h-4 mr-2" />
-                089-123-4567
+                092-890-0429
               </a>
             </Button>
           </div>
