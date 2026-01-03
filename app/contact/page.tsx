@@ -1,0 +1,384 @@
+'use client';
+
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Phone, Mail, MapPin, Clock, Send, CheckCircle, Loader2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
+const contactSchema = z.object({
+    name: z.string().min(2, 'กรุณากรอกชื่อ-นามสกุล'),
+    phone: z.string().min(9, 'กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง').max(10),
+    email: z.string().email('กรุณากรอกอีเมลให้ถูกต้อง').optional().or(z.literal('')),
+    service: z.string().min(1, 'กรุณาเลือกประเภทบริการ'),
+    address: z.string().min(10, 'กรุณากรอกที่อยู่'),
+    message: z.string().optional(),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
+
+const serviceOptions = [
+    { value: 'termite', label: 'กำจัดปลวก' },
+    { value: 'cockroach', label: 'กำจัดแมลงสาบ' },
+    { value: 'mosquito', label: 'กำจัดยุง' },
+    { value: 'rat', label: 'กำจัดหนู' },
+    { value: 'other', label: 'อื่นๆ' },
+];
+
+const contactInfo = [
+    {
+        icon: Phone,
+        title: 'โทรศัพท์',
+        value: '089-123-4567',
+        href: 'tel:0891234567',
+        description: 'พร้อมให้บริการ 24 ชั่วโมง',
+    },
+    {
+        icon: Mail,
+        title: 'อีเมล',
+        value: 'info@rabbitpestcontrol.net',
+        href: 'mailto:info@rabbitpestcontrol.net',
+        description: 'ตอบกลับภายใน 24 ชั่วโมง',
+    },
+    {
+        icon: MapPin,
+        title: 'สำนักงาน',
+        value: 'จันทบุรี',
+        description: 'ให้บริการ จันทบุรี ตราด ระยอง',
+    },
+    {
+        icon: Clock,
+        title: 'เวลาทำการ',
+        value: '24 ชั่วโมง / 7 วัน',
+        description: 'พร้อมให้บริการตลอดเวลา',
+    },
+];
+
+export default function ContactPage() {
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        reset,
+    } = useForm<ContactFormData>({
+        resolver: zodResolver(contactSchema),
+    });
+
+    const onSubmit = async (data: ContactFormData) => {
+        setIsSubmitting(true);
+
+        // Simulate API call
+        console.log('Form submitted:', data);
+
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+
+        setIsSubmitting(false);
+        setIsSubmitted(true);
+        reset();
+
+        // Reset success message after 5 seconds
+        setTimeout(() => setIsSubmitted(false), 5000);
+    };
+
+    return (
+        <>
+            {/* Hero Section */}
+            <section className="relative py-20 lg:py-28 bg-gradient-to-br from-gray-900 via-gray-800 to-black overflow-hidden">
+                <div className="absolute inset-0 opacity-10">
+                    <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500 rounded-full blur-3xl" />
+                    <div className="absolute bottom-0 left-0 w-96 h-96 bg-orange-600 rounded-full blur-3xl" />
+                </div>
+
+                <div className="container mx-auto px-4 lg:px-8 relative z-10">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="max-w-3xl"
+                    >
+                        <span className="inline-block px-4 py-1.5 bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm font-medium rounded-full mb-6">
+                            ติดต่อเรา
+                        </span>
+                        <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6">
+                            พร้อมให้บริการ
+                            <span className="text-gradient-orange"> 24 ชั่วโมง</span>
+                        </h1>
+                        <p className="text-xl text-gray-300 leading-relaxed">
+                            ติดต่อเราเพื่อรับคำปรึกษาฟรี พร้อมใบเสนอราคาที่ยุติธรรม
+                            ทีมงานของเราพร้อมให้บริการคุณตลอดเวลา
+                        </p>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* Contact Section */}
+            <section className="py-16 lg:py-24 bg-white">
+                <div className="container mx-auto px-4 lg:px-8">
+                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+                        {/* Contact Info */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                        >
+                            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-6">
+                                ช่องทางติดต่อ
+                            </h2>
+                            <p className="text-gray-600 mb-8">
+                                สามารถติดต่อเราได้หลายช่องทาง ทั้งโทรศัพท์ อีเมล หรือ Line
+                                เรายินดีให้คำปรึกษาฟรีทุกเรื่อง
+                            </p>
+
+                            <div className="grid sm:grid-cols-2 gap-4 mb-8">
+                                {contactInfo.map((item, index) => (
+                                    <motion.div
+                                        key={item.title}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: index * 0.1 }}
+                                    >
+                                        {item.href ? (
+                                            <a
+                                                href={item.href}
+                                                className="block p-5 bg-gray-50 rounded-xl hover:bg-orange-50 hover:border-orange-200 border border-transparent transition-colors group"
+                                            >
+                                                <div className="flex items-center gap-3 mb-2">
+                                                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-orange-100 text-orange-600 group-hover:bg-orange-500 group-hover:text-white transition-colors">
+                                                        <item.icon className="w-5 h-5" />
+                                                    </div>
+                                                    <div className="text-sm text-gray-500">{item.title}</div>
+                                                </div>
+                                                <div className="font-bold text-gray-900 group-hover:text-orange-600 transition-colors">
+                                                    {item.value}
+                                                </div>
+                                                <div className="text-xs text-gray-500 mt-1">{item.description}</div>
+                                            </a>
+                                        ) : (
+                                            <div className="p-5 bg-gray-50 rounded-xl border border-transparent">
+                                                <div className="flex items-center gap-3 mb-2">
+                                                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-orange-100 text-orange-600">
+                                                        <item.icon className="w-5 h-5" />
+                                                    </div>
+                                                    <div className="text-sm text-gray-500">{item.title}</div>
+                                                </div>
+                                                <div className="font-bold text-gray-900">{item.value}</div>
+                                                <div className="text-xs text-gray-500 mt-1">{item.description}</div>
+                                            </div>
+                                        )}
+                                    </motion.div>
+                                ))}
+                            </div>
+
+                            {/* Line CTA */}
+                            <motion.a
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                href="https://line.me/ti/p/~rabbit-pest"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-4 p-6 bg-[#00B900] rounded-xl text-white hover:bg-[#00A000] transition-colors"
+                            >
+                                <div className="flex items-center justify-center w-14 h-14 bg-white/20 rounded-xl">
+                                    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.064-.021.136-.033.203-.033.211 0 .391.09.51.25l2.438 3.317V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div className="font-bold text-lg">เพิ่มเพื่อนทาง Line</div>
+                                    <div className="text-white/80 text-sm">@rabbit-pest</div>
+                                </div>
+                            </motion.a>
+                        </motion.div>
+
+                        {/* Contact Form */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                        >
+                            <div className="bg-gray-50 rounded-2xl p-6 lg:p-8">
+                                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                                    แบบฟอร์มขอใบเสนอราคา
+                                </h2>
+                                <p className="text-gray-600 text-sm mb-6">
+                                    กรอกข้อมูลด้านล่าง เราจะติดต่อกลับภายใน 1 ชั่วโมง
+                                </p>
+
+                                {isSubmitted ? (
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        className="text-center py-12"
+                                    >
+                                        <div className="flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mx-auto mb-4">
+                                            <CheckCircle className="w-8 h-8 text-green-600" />
+                                        </div>
+                                        <h3 className="text-xl font-bold text-gray-900 mb-2">ส่งข้อมูลสำเร็จ!</h3>
+                                        <p className="text-gray-600">เราจะติดต่อกลับโดยเร็วที่สุดครับ</p>
+                                    </motion.div>
+                                ) : (
+                                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                                        {/* Name */}
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                                                ชื่อ-นามสกุล <span className="text-red-500">*</span>
+                                            </label>
+                                            <input
+                                                type="text"
+                                                {...register('name')}
+                                                className={`w-full px-4 py-3 rounded-xl border ${errors.name ? 'border-red-300 bg-red-50' : 'border-gray-200 bg-white'
+                                                    } focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all`}
+                                                placeholder="กรอกชื่อ-นามสกุล"
+                                            />
+                                            {errors.name && (
+                                                <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
+                                            )}
+                                        </div>
+
+                                        {/* Phone */}
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                                                เบอร์โทรศัพท์ <span className="text-red-500">*</span>
+                                            </label>
+                                            <input
+                                                type="tel"
+                                                {...register('phone')}
+                                                className={`w-full px-4 py-3 rounded-xl border ${errors.phone ? 'border-red-300 bg-red-50' : 'border-gray-200 bg-white'
+                                                    } focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all`}
+                                                placeholder="0XX-XXX-XXXX"
+                                            />
+                                            {errors.phone && (
+                                                <p className="mt-1 text-sm text-red-500">{errors.phone.message}</p>
+                                            )}
+                                        </div>
+
+                                        {/* Email */}
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                                                อีเมล (ไม่บังคับ)
+                                            </label>
+                                            <input
+                                                type="email"
+                                                {...register('email')}
+                                                className={`w-full px-4 py-3 rounded-xl border ${errors.email ? 'border-red-300 bg-red-50' : 'border-gray-200 bg-white'
+                                                    } focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all`}
+                                                placeholder="example@email.com"
+                                            />
+                                            {errors.email && (
+                                                <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
+                                            )}
+                                        </div>
+
+                                        {/* Service */}
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                                                ประเภทบริการ <span className="text-red-500">*</span>
+                                            </label>
+                                            <select
+                                                {...register('service')}
+                                                className={`w-full px-4 py-3 rounded-xl border ${errors.service ? 'border-red-300 bg-red-50' : 'border-gray-200 bg-white'
+                                                    } focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all`}
+                                            >
+                                                <option value="">-- เลือกบริการ --</option>
+                                                {serviceOptions.map((option) => (
+                                                    <option key={option.value} value={option.value}>
+                                                        {option.label}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            {errors.service && (
+                                                <p className="mt-1 text-sm text-red-500">{errors.service.message}</p>
+                                            )}
+                                        </div>
+
+                                        {/* Address */}
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                                                ที่อยู่ <span className="text-red-500">*</span>
+                                            </label>
+                                            <textarea
+                                                {...register('address')}
+                                                rows={3}
+                                                className={`w-full px-4 py-3 rounded-xl border ${errors.address ? 'border-red-300 bg-red-50' : 'border-gray-200 bg-white'
+                                                    } focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all resize-none`}
+                                                placeholder="บ้านเลขที่ ถนน ตำบล อำเภอ จังหวัด"
+                                            />
+                                            {errors.address && (
+                                                <p className="mt-1 text-sm text-red-500">{errors.address.message}</p>
+                                            )}
+                                        </div>
+
+                                        {/* Message */}
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                                                รายละเอียดเพิ่มเติม
+                                            </label>
+                                            <textarea
+                                                {...register('message')}
+                                                rows={3}
+                                                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all resize-none"
+                                                placeholder="อธิบายปัญหาหรือความต้องการเพิ่มเติม..."
+                                            />
+                                        </div>
+
+                                        {/* Submit */}
+                                        <Button
+                                            type="submit"
+                                            disabled={isSubmitting}
+                                            className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-6 text-lg"
+                                        >
+                                            {isSubmitting ? (
+                                                <>
+                                                    <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                                                    กำลังส่ง...
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <Send className="w-5 h-5 mr-2" />
+                                                    ส่งข้อมูล
+                                                </>
+                                            )}
+                                        </Button>
+                                    </form>
+                                )}
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Map Section */}
+            <section className="py-16 lg:py-24 bg-gray-50">
+                <div className="container mx-auto px-4 lg:px-8">
+                    <div className="text-center mb-12">
+                        <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
+                            พื้นที่ให้บริการ
+                        </h2>
+                        <p className="text-gray-600 max-w-2xl mx-auto">
+                            เราให้บริการครอบคลุมพื้นที่ 3 จังหวัดในภาคตะวันออก พร้อมทีมงานประจำในแต่ละพื้นที่
+                        </p>
+                    </div>
+
+                    <div className="aspect-video max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d496588.5082929791!2d101.89839894257813!3d12.545837399999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3103d0e2bd6dbfd1%3A0x40223cf84d8e4e0!2sChanthaburi!5e0!3m2!1sen!2sth!4v1704264000000!5m2!1sen!2sth"
+                            width="100%"
+                            height="100%"
+                            style={{ border: 0 }}
+                            allowFullScreen
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                            title="Service Area Map"
+                        />
+                    </div>
+                </div>
+            </section>
+        </>
+    );
+}
