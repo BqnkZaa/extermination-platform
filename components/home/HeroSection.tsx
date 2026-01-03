@@ -54,7 +54,7 @@ export default function HeroSection() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
-                        className="text-lg md:text-xl text-black mb-8 max-w-2xl leading-relaxed md:[-webkit-text-stroke:0.5px_#ffffff]"
+                        className="text-xl md:text-xl text-black mb-8 max-w-2xl leading-relaxed font-medium bg-white/20 backdrop-blur-[2px] p-0.2 rounded-xl md:bg-transparent md:backdrop-blur-none md:p-0 md:[-webkit-text-stroke:0.5px_#ffffff]"
                     >
                         บริการกำจัดปลวก แมลงสาบ ยุง และหนู ครบวงจร ด้วยวิธีที่ปลอดภัยต่อคนและสัตว์เลี้ยง
                         พร้อมให้บริการพื้นที่ <span className="text-orange-400 font-medium">จันทบุรี ตราด ระยอง</span>
