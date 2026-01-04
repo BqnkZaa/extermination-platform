@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Shield, Award, Users, Target, Heart, Leaf, Clock, CheckCircle } from 'lucide-react';
 import CTASection from '@/components/home/CTASection';
+import Image from 'next/image';
 
 const stats = [
     { value: '15+', label: 'ปีประสบการณ์', icon: Award },
@@ -38,7 +39,7 @@ const milestones = [
     { year: '2009', event: 'ก่อตั้งบริษัท เริ่มให้บริการในพื้นที่จันทบุรี' },
     { year: '2012', event: 'ขยายพื้นที่บริการครอบคลุมจังหวัดตราด' },
     { year: '2015', event: 'ได้รับใบอนุญาตจากกระทรวงสาธารณสุข' },
-    { year: '2018', event: 'ขยายบริการสู่จังหวัดระยอง' },
+    { year: '2018', event: 'ขยายบริการสู่เกาะช้าง' },
     { year: '2020', event: 'เปิดตัวระบบนัดหมายออนไลน์' },
     { year: '2024', event: 'ก้าวสู่ลูกค้ารายที่ 5,000' },
 ];
@@ -48,11 +49,8 @@ export default function AboutPage() {
         <>
             {/* Hero Section */}
             {/* Hero Section */}
-            <section className="relative py-20 lg:py-32 bg-gradient-to-br from-gray-900 via-gray-800 to-black overflow-hidden">
-                <div className="absolute inset-0 opacity-10">
-                    <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500 rounded-full blur-3xl" />
-                    <div className="absolute bottom-0 left-0 w-96 h-96 bg-orange-600 rounded-full blur-3xl" />
-                </div>
+            <section className="relative py-20 lg:py-32 bg-cover bg-top bg-no-repeat overflow-hidden" style={{ backgroundImage: "url('/images/background_employee.png')" }}>
+                <div className="absolute inset-0 bg-black/80 z-0"></div>
 
                 <div className="container mx-auto px-4 lg:px-8 relative z-10">
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -73,22 +71,6 @@ export default function AboutPage() {
                                 ด้วยทีมงานมืออาชีพที่มีประสบการณ์และความเชี่ยวชาญ
                                 พร้อมให้บริการตลอด 24 ชั่วโมงในพื้นที่ภาคตะวันออก
                             </p>
-                        </motion.div>
-
-                        {/* Right Column: Hero Image */}
-                        <motion.div
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
-                            className="hidden lg:block relative"
-                        >
-                            <div className="relative z-10">
-                                <img
-                                    src="/images/hero_banner_transparent.png"
-                                    alt="Professional Pest Control Team"
-                                    className="w-full h-auto object-contain drop-shadow-2xl"
-                                />
-                            </div>
                         </motion.div>
                     </div>
                 </div>
@@ -140,7 +122,7 @@ export default function AboutPage() {
                                     และเติบโตอย่างต่อเนื่องจากการบอกต่อของลูกค้าที่พึงพอใจ
                                 </p>
                                 <p>
-                                    ปัจจุบันเราให้บริการครอบคลุม 3 จังหวัดในภาคตะวันออก ได้แก่ จันทบุรี ตราด และระยอง
+                                    ปัจจุบันเราให้บริการครอบคลุม 3 พื้นที่ในภาคตะวันออก ได้แก่ จันทบุรี ตราด และเกาะช้าง
                                     โดยมีทีมงานประจำในแต่ละพื้นที่ พร้อมให้บริการอย่างรวดเร็วและมีประสิทธิภาพ
                                 </p>
                                 <p>
@@ -266,8 +248,13 @@ export default function AboutPage() {
                             className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100"
                         >
                             <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                                <div className="flex items-center justify-center w-20 h-20 rounded-full bg-green-100">
-                                    <Shield className="w-10 h-10 text-green-600" />
+                                <div className="relative w-20 h-20 flex-shrink-0">
+                                    <Image
+                                        src="/images/ministry_of_public_health.png"
+                                        alt="Ministry of Public Health Logo"
+                                        fill
+                                        className="object-contain"
+                                    />
                                 </div>
                                 <div className="text-left">
                                     <h3 className="text-xl font-bold text-gray-900 mb-2">

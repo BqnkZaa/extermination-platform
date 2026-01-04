@@ -47,8 +47,9 @@ const services = [
 
 export default function ServicesGrid() {
     return (
-        <section className="py-20 lg:py-28 bg-white">
-            <div className="container mx-auto px-4 lg:px-8">
+        <section className="py-20 lg:py-28 bg-cover bg-center bg-no-repeat relative" style={{ backgroundImage: "url('/images/employee.png')" }}>
+            <div className="absolute inset-0 bg-white/90 z-0"></div>
+            <div className="container mx-auto px-4 lg:px-8 relative z-10">
                 {/* Section Header */}
                 <div className="text-center mb-16 lg:mb-20">
                     <motion.span

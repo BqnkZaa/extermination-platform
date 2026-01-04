@@ -7,13 +7,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useContactInfo } from '@/hooks/useContactInfo';
 
 const contactSchema = z.object({
     name: z.string().min(2, 'กรุณากรอกชื่อ-นามสกุล'),
     phone: z.string().min(9, 'กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง').max(10),
     email: z.string().email('กรุณากรอกอีเมลให้ถูกต้อง').optional().or(z.literal('')),
     service: z.string().min(1, 'กรุณาเลือกประเภทบริการ'),
-    address: z.string().min(10, 'กรุณากรอกที่อยู่'),
+    address: z.string().min(5, 'กรุณากรอกที่อยู่'),
     message: z.string().optional(),
 });
 
@@ -27,34 +30,7 @@ const serviceOptions = [
     { value: 'other', label: 'อื่นๆ' },
 ];
 
-const contactInfo = [
-    {
-        icon: Phone,
-        title: 'โทรศัพท์',
-        value: '089-123-4567',
-        href: 'tel:0891234567',
-        description: 'พร้อมให้บริการ 24 ชั่วโมง',
-    },
-    {
-        icon: Mail,
-        title: 'อีเมล',
-        value: 'info@rabbitpestcontrol.net',
-        href: 'mailto:info@rabbitpestcontrol.net',
-        description: 'ตอบกลับภายใน 24 ชั่วโมง',
-    },
-    {
-        icon: MapPin,
-        title: 'สำนักงาน',
-        value: '5 ถนน รักศักดิ์ชมูล ตำบลวัดใหม่ อำเภอเมืองจันทบุรี จันทบุรี 22000',
-        description: 'ให้บริการ จันทบุรี ตราด ระยอง',
-    },
-    {
-        icon: Clock,
-        title: 'เวลาทำการ',
-        value: '24 ชั่วโมง / 7 วัน',
-        description: 'พร้อมให้บริการตลอดเวลา',
-    },
-];
+
 
 export default function ContactPage() {
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -69,29 +45,84 @@ export default function ContactPage() {
         resolver: zodResolver(contactSchema),
     });
 
+    const { contact } = useContactInfo();
+
+    const contactInfoItems = [
+        {
+            icon: Phone,
+            title: 'โทรศัพท์',
+            value: contact.phone_display,
+            href: `tel:${contact.phone_call}`,
+            description: 'พร้อมให้บริการ 24 ชั่วโมง',
+        },
+        {
+            icon: Mail,
+            title: 'อีเมล',
+            value: contact.email,
+            href: `mailto:${contact.email}`,
+            description: 'ตอบกลับภายใน 24 ชั่วโมง',
+        },
+        {
+            icon: MapPin,
+            title: 'สำนักงาน',
+            value: contact.address,
+            description: 'ให้บริการ จันทบุรี ตราด เกาะช้าง',
+        },
+        {
+            icon: Clock,
+            title: 'เวลาทำการ',
+            value: contact.open_time,
+            description: 'พร้อมให้บริการตลอดเวลา',
+        },
+    ];
+
     const onSubmit = async (data: ContactFormData) => {
         setIsSubmitting(true);
 
-        // Simulate API call
-        console.log('Form submitted:', data);
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
 
-        await new Promise((resolve) => setTimeout(resolve, 1500));
+            const result = await response.json();
 
-        setIsSubmitting(false);
-        setIsSubmitted(true);
-        reset();
+            if (!response.ok) {
+                throw new Error(result.message || 'Failed to submit form');
+            }
 
-        // Reset success message after 5 seconds
-        setTimeout(() => setIsSubmitted(false), 5000);
+            setIsSubmitting(false);
+            setIsSubmitted(true);
+            reset();
+
+            // Reset success message after 5 seconds
+            setTimeout(() => setIsSubmitted(false), 5000);
+
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            setIsSubmitting(false);
+            alert('เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่อีกครั้ง');
+        }
     };
 
     return (
         <>
             {/* Hero Section */}
-            <section className="relative py-20 lg:py-28 bg-gradient-to-br from-gray-900 via-gray-800 to-black overflow-hidden">
-                <div className="absolute inset-0 opacity-10">
-                    <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500 rounded-full blur-3xl" />
-                    <div className="absolute bottom-0 left-0 w-96 h-96 bg-orange-600 rounded-full blur-3xl" />
+            <section className="relative py-20 lg:py-28">
+                {/* Background Image */}
+                <div className="absolute inset-0 w-full h-full">
+                    <Image
+                        src="/images/service_optimized.png"
+                        alt="Ready to Serve"
+                        fill
+                        className="object-cover"
+                        priority
+                    />
+                    {/* Overlay */}
+                    <div className="absolute inset-0 bg-black/70" />
                 </div>
 
                 <div className="container mx-auto px-4 lg:px-8 relative z-10">
@@ -134,7 +165,7 @@ export default function ContactPage() {
                             </p>
 
                             <div className="grid sm:grid-cols-2 gap-4 mb-8">
-                                {contactInfo.map((item, index) => (
+                                {contactInfoItems.map((item, index) => (
                                     <motion.div
                                         key={item.title}
                                         initial={{ opacity: 0, y: 20 }}
@@ -179,7 +210,7 @@ export default function ContactPage() {
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                href="https://line.me/ti/p/~rabbit-pest"
+                                href={contact.line_url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center gap-4 p-6 bg-[#00B900] rounded-xl text-white hover:bg-[#00A000] transition-colors"
@@ -191,7 +222,7 @@ export default function ContactPage() {
                                 </div>
                                 <div>
                                     <div className="font-bold text-lg">เพิ่มเพื่อนทาง Line</div>
-                                    <div className="text-white/80 text-sm">@rabbit-pest</div>
+                                    <div className="text-white/80 text-sm">{contact.line_id}</div>
                                 </div>
                             </motion.a>
                         </motion.div>

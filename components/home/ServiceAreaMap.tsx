@@ -16,9 +16,9 @@ const areas = [
         districts: ['เกาะช้าง', 'เมืองตราด', 'คลองใหญ่', 'เขาสมิง', 'บ่อไร่', 'แหลมงอบ'],
     },
     {
-        name: 'ระยอง',
-        nameEn: 'Rayong',
-        districts: ['เมืองระยอง', 'บ้านฉาง', 'แกลง', 'วังจันทร์', 'บ้านค่าย', 'ปลวกแดง'],
+        name: 'เกาะช้าง',
+        nameEn: 'Koh Chang',
+        districts: ['หาดทรายขาว', 'คลองพร้าว', 'ไก่แบ้', 'บางเบ้า', 'สลักเพชร', 'ด่านเก่า'],
     },
 ];
 
@@ -112,8 +112,8 @@ export default function ServiceAreaMap() {
                                 <div className="absolute inset-0 w-full h-full rounded-3xl overflow-hidden p-2">
                                     <div className="relative w-full h-full rounded-2xl overflow-hidden">
                                         <Image
-                                            src="/images/service-area-map-v3.png"
-                                            alt="Service Area Map - Rayong, Chanthaburi, Trat"
+                                            src="/images/service-area-map-v1.png"
+                                            alt="Service Area Map - Koh Chang, Chanthaburi, Trat"
                                             fill
                                             className="object-cover opacity-90 hover:scale-105 transition-transform duration-700"
                                             quality={100}

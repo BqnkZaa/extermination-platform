@@ -8,6 +8,8 @@ const defaultContact = {
     phone_call: '0891234567',
     email: 'info@rabbitpestcontrol.net',
     line_url: 'https://line.me/ti/p/~rabbit-pest',
+    line_id: '@rabbit-pest',
+    google_sheet_url: 'https://docs.google.com/spreadsheets/', // Placeholder: Update this with the actual URL
     facebook_url: 'https://facebook.com',
     instagram_url: 'https://instagram.com',
     address: 'ให้บริการพื้นที่ภาคตะวันออก',
@@ -21,7 +23,7 @@ export function useContactInfo() {
     useEffect(() => {
         async function fetchContact() {
             try {
-                const res = await fetch('/api/contact', { next: { revalidate: 3600 } }); // Cache for 1 hour
+                const res = await fetch('/api/contact', { next: { revalidate: 0 } }); // No cache
                 if (!res.ok) throw new Error('Failed to fetch');
                 const data = await res.json();
 

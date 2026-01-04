@@ -4,7 +4,9 @@ import { motion } from 'framer-motion';
 import { Bug, Rat, Shield, CheckCircle, ArrowRight, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import Image from 'next/image';
 import CTASection from '@/components/home/CTASection';
+import { useContactInfo } from '@/hooks/useContactInfo';
 
 const services = [
     {
@@ -124,13 +126,22 @@ const services = [
 ];
 
 export default function ServicesPage() {
+    const { contact } = useContactInfo();
     return (
         <>
             {/* Hero Section */}
-            <section className="relative py-20 lg:py-32 bg-gradient-to-br from-gray-900 via-gray-800 to-black overflow-hidden">
-                <div className="absolute inset-0 opacity-10">
-                    <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500 rounded-full blur-3xl" />
-                    <div className="absolute bottom-0 left-0 w-96 h-96 bg-orange-600 rounded-full blur-3xl" />
+            <section className="relative py-20 lg:py-32">
+                {/* Background Image */}
+                <div className="absolute inset-0 w-full h-full">
+                    <Image
+                        src="/images/insect_optimized.png"
+                        alt="Insect Control Service"
+                        fill
+                        className="object-cover"
+                        priority
+                    />
+                    {/* Overlay */}
+                    <div className="absolute inset-0 bg-black/70" />
                 </div>
 
                 <div className="container mx-auto px-4 lg:px-8 relative z-10">
@@ -219,10 +230,10 @@ export default function ServicesPage() {
                                         </div>
                                     </div>
                                     <Button className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white" asChild>
-                                        <a href="tel:0891234567">
+                                        <Link href="/contact">
                                             <Phone className="w-4 h-4 mr-2" />
                                             ขอใบเสนอราคา
-                                        </a>
+                                        </Link>
                                     </Button>
                                 </div>
 

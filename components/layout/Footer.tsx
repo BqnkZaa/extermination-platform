@@ -20,7 +20,7 @@ const footerLinks = {
     areas: [
         { label: 'จันทบุรี' },
         { label: 'ตราด' },
-        { label: 'ระยอง' },
+        { label: 'เกาะช้าง' },
     ],
 };
 

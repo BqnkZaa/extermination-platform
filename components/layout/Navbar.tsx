@@ -71,7 +71,7 @@ export default function Navbar() {
               </a>
             </Button>
             <Button className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transition-all">
-              <a href={`tel:${contact.phone_call}`} className="flex items-center">
+              <a href={contact.google_sheet_url} target="_blank" rel="noopener noreferrer" className="flex items-center">
                 <Phone className="w-4 h-4 mr-2" />
                 {contact.phone_display}
               </a>
@@ -132,7 +132,7 @@ export default function Navbar() {
                   {/* Mobile CTA */}
                   <div className="mt-auto pt-6 space-y-3">
                     <Button className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white" asChild>
-                      <a href={`tel:${contact.phone_call}`}>
+                      <a href={contact.google_sheet_url} target="_blank" rel="noopener noreferrer">
                         <Phone className="w-4 h-4 mr-2" />
                         โทรเลย {contact.phone_display}
                       </a>

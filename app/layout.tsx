@@ -12,15 +12,15 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Rabbit Pest Control | กำจัดปลวก แมลง หนู จันทบุรี ตราด ระยอง",
-  description: "บริการกำจัดปลวก แมลงสาบ ยุง หนู ครบวงจร ปลอดภัยต่อคนและสัตว์เลี้ยง ให้บริการ 24 ชั่วโมง พื้นที่จันทบุรี ตราด ระยอง ได้รับอนุญาตจากกระทรวงสาธารณสุข",
-  keywords: ["กำจัดปลวก", "กำจัดแมลง", "กำจัดหนู", "pest control", "จันทบุรี", "ตราด", "ระยอง", "Rabbit Pest Control"],
+  title: "Rabbit Pest Control | กำจัดปลวก แมลง หนู จันทบุรี ตราด เกาะช้าง",
+  description: "บริการกำจัดปลวก แมลงสาบ ยุง หนู ครบวงจร ปลอดภัยต่อคนและสัตว์เลี้ยง ให้บริการ 24 ชั่วโมง พื้นที่จันทบุรี ตราด เกาะช้าง ได้รับอนุญาตจากกระทรวงสาธารณสุข",
+  keywords: ["กำจัดปลวก", "กำจัดแมลง", "กำจัดหนู", "pest control", "จันทบุรี", "ตราด", "เกาะช้าง", "Rabbit Pest Control"],
   authors: [{ name: "Rabbit Pest Control" }],
   icons: {
     icon: "/images/Logo.png",
   },
   openGraph: {
-    title: "Rabbit Pest Control | กำจัดปลวก แมลง หนู จันทบุรี ตราด ระยอง",
+    title: "Rabbit Pest Control | กำจัดปลวก แมลง หนู จันทบุรี ตราด เกาะช้าง",
     description: "บริการกำจัดปลวก แมลงสาบ ยุง หนู ครบวงจร ปลอดภัยต่อคนและสัตว์เลี้ยง ให้บริการ 24 ชั่วโมง",
     type: "website",
     locale: "th_TH",
