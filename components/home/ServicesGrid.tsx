@@ -6,94 +6,81 @@ import { Bug, Rat, ArrowRight } from 'lucide-react';
 
 const services = [
     {
-        id: 'termites',
+        id: 'termite-bait',
         icon: () => (
             <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c-1.5 0-3 1-3 3v2c0 1 .5 2 1 3l-2 4h8l-2-4c.5-1 1-2 1-3V6c0-2-1.5-3-3-3z" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 15v3m6-3v3M8 8H6m12 0h-2" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
         ),
-        title: 'กำจัดปลวก',
-        titleEn: 'Termite Control',
-        description: 'ระบบกำจัดปลวกครบวงจร ทั้งแบบเคมีและระบบเหยื่อ รับประกันผลงาน',
-        href: '/services#termites',
+        title: 'กำจัดปลวกระบบเหยื่อ',
+        titleEn: 'Termite Bait System',
+        description: 'ตายยกรัง ปลอดภัยต่อคนและสัตว์เลี้ยง เหมาะสำหรับบ้านที่มีเด็กหรือสัตว์เลี้ยง',
+        href: '/services/termite-bait',
+        color: 'from-green-500 to-emerald-500',
+        bgGradient: 'from-green-50 to-emerald-50',
+    },
+    {
+        id: 'termite-soil',
+        icon: () => (
+            <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+        ),
+        title: 'ฉีดพ่นป้องกันปลวก',
+        titleEn: 'Soil Treatment',
+        description: 'ปกป้องโครงสร้างบ้านด้วยน้ำยาเคมีมาตรฐานสูง ติดทนนาน คุ้มค่า',
+        href: '/services/termite-soil',
         color: 'from-orange-500 to-amber-500',
         bgGradient: 'from-orange-50 to-amber-50',
     },
     {
-        id: 'cockroaches',
+        id: 'general-pest',
         icon: Bug,
-        title: 'กำจัดแมลงสาบ',
-        titleEn: 'Cockroach Control',
-        description: 'กำจัดแมลงสาบทุกสายพันธุ์ ด้วยวิธีที่ปลอดภัย ไม่มีกลิ่นรบกวน',
-        href: '/services#cockroaches',
-        color: 'from-red-500 to-rose-500',
-        bgGradient: 'from-red-50 to-rose-50',
-    },
-    {
-        id: 'mosquitoes',
-        icon: () => (
-            <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v4m0 4v8M8 12h8M6 8l2 2m8-2l-2 2M6 16l2-2m8 2l-2-2" />
-                <circle cx="12" cy="10" r="2" />
-            </svg>
-        ),
-        title: 'กำจัดยุง',
-        titleEn: 'Mosquito Control',
-        description: 'พ่นหมอกควันและสเปรย์กำจัดยุง ลดการแพร่ระบาดของโรค',
-        href: '/services#mosquitoes',
-        color: 'from-blue-500 to-cyan-500',
-        bgGradient: 'from-blue-50 to-cyan-50',
-    },
-    {
-        id: 'rats',
-        icon: Rat,
-        title: 'กำจัดหนู',
-        titleEn: 'Rodent Control',
-        description: 'กำจัดหนูทุกชนิด ป้องกันการกลับมา ด้วยระบบที่มีประสิทธิภาพ',
-        href: '/services#rats',
-        color: 'from-gray-600 to-gray-700',
-        bgGradient: 'from-gray-50 to-slate-50',
+        title: 'กำจัดแมลงและสัตว์รบกวน',
+        titleEn: 'General Pest Control',
+        description: 'กำจัดมด แมลงสาบ หนู และยุง อย่างมีประสิทธิภาพ ตัดวงจรการแพร่พันธุ์',
+        href: '/services/general-pest',
+        color: 'from-blue-500 to-indigo-500',
+        bgGradient: 'from-blue-50 to-indigo-50',
     },
 ];
 
 export default function ServicesGrid() {
     return (
-        <section className="py-16 lg:py-24 bg-white">
+        <section className="py-20 lg:py-28 bg-white">
             <div className="container mx-auto px-4 lg:px-8">
                 {/* Section Header */}
-                <div className="text-center mb-12 lg:mb-16">
+                <div className="text-center mb-16 lg:mb-20">
                     <motion.span
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="inline-block px-4 py-1.5 bg-orange-100 text-orange-600 text-sm font-medium rounded-full mb-4"
+                        className="inline-block px-4 py-1.5 bg-orange-50 text-orange-600 text-sm font-semibold rounded-full mb-4 tracking-wide uppercase"
                     >
-                        บริการของเรา
+                        Our Services
                     </motion.span>
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4"
+                        className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6"
                     >
-                        บริการกำจัดแมลงครบวงจร
+                        บริการมาตรฐานมืออาชีพ
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
-                        className="text-gray-500 text-lg max-w-2xl mx-auto"
+                        className="text-gray-500 text-lg max-w-2xl mx-auto font-light leading-relaxed"
                     >
-                        เราให้บริการกำจัดแมลงและสัตว์รบกวนทุกชนิด ด้วยทีมงานมืออาชีพ
-                        และอุปกรณ์ที่ทันสมัย
+                        เรามีโซลูชั่นกำจัดปลวกและแมลงที่ครอบคลุม ออกแบบมาเพื่อปกป้องบ้านและธุรกิจของคุณอย่างยั่งยืน
                     </motion.p>
                 </div>
 
                 {/* Services Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
                     {services.map((service, index) => (
                         <motion.div
                             key={service.id}
@@ -104,27 +91,25 @@ export default function ServicesGrid() {
                         >
                             <Link
                                 href={service.href}
-                                className="group block h-full p-6 lg:p-8 bg-gradient-to-br rounded-2xl border border-gray-100 hover:border-orange-200 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-300"
-                                style={{
-                                    background: `linear-gradient(135deg, ${service.bgGradient.split(' ')[0].replace('from-', '')} 0%, white 100%)`,
-                                }}
+                                className="group block h-full p-8 bg-white rounded-2xl border border-gray-100 hover:border-orange-200 hover:shadow-2xl hover:shadow-orange-500/5 transition-all duration-300 relative overflow-hidden"
                             >
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-orange-50 rounded-bl-[100px] -mr-16 -mt-16 transition-transform group-hover:scale-110" />
+
                                 {/* Icon */}
-                                <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} text-white mb-6 group-hover:scale-110 transition-transform`}>
-                                    <service.icon />
+                                <div className="relative w-16 h-16 rounded-2xl bg-orange-50 flex items-center justify-center text-orange-600 mb-8 group-hover:bg-orange-600 group-hover:text-white transition-colors duration-300">
+                                    <service.icon className="w-8 h-8" />
                                 </div>
 
-                                {/* Title */}
-                                <h3 className="text-xl font-bold text-gray-900 mb-1">{service.title}</h3>
-                                <p className="text-sm text-gray-400 mb-3">{service.titleEn}</p>
+                                {/* Content */}
+                                <div className="relative">
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors">{service.title}</h3>
+                                    <p className="text-sm text-gray-400 mb-4 font-medium uppercase tracking-wider">{service.titleEn}</p>
+                                    <p className="text-gray-600 leading-relaxed mb-6">{service.description}</p>
 
-                                {/* Description */}
-                                <p className="text-gray-600 text-sm leading-relaxed mb-4">{service.description}</p>
-
-                                {/* Link */}
-                                <div className="flex items-center text-orange-600 font-medium text-sm group-hover:gap-2 transition-all">
-                                    <span>ดูรายละเอียด</span>
-                                    <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                                    <div className="flex items-center text-orange-600 font-semibold group-hover:gap-2 transition-all">
+                                        <span>ดูรายละเอียด</span>
+                                        <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                                    </div>
                                 </div>
                             </Link>
                         </motion.div>

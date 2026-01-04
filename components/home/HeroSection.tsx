@@ -7,34 +7,38 @@ import Image from 'next/image';
 
 export default function HeroSection() {
     return (
-        <section className="relative min-h-[90vh] lg:min-h-[85vh] flex items-center overflow-hidden">
+        <section className="relative min-h-[90vh] lg:min-h-[85vh] flex items-center overflow-hidden bg-white">
             {/* Background Pattern */}
-            {/* Background Pattern */}
-            <div className="absolute inset-0 bg-black">
-                <Image
-                    src="/images/background_exterminate.png"
-                    alt="Hero Background"
-                    fill
-                    className="object-cover opacity-100"
-                    priority
-                />
-
-                {/* Animated Circles */}
-                {/* <div className="absolute top-20 right-20 w-64 h-64 bg-orange-500/20 rounded-full blur-3xl animate-pulse" /> */}
-                <div className="absolute bottom-20 left-20 w-48 h-48 bg-orange-600/10 rounded-full blur-3xl animate-pulse delay-1000" />
+            <div className="absolute inset-0 bg-white z-0">
+                <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03]" />
+                <div className="absolute inset-0 bg-gradient-to-b from-orange-50/50 to-white" />
             </div>
 
-            <div className="container mx-auto px-4 lg:px-8 relative z-10 pb-10 lg:pb-0">
-                <div className="max-w-4xl">
+            {/* Background Image & Overlay */}
+            <div className="absolute inset-0 z-0">
+                <Image
+                    src="/images/hero_banner_v4.png"
+                    alt="Termite Extermination Service"
+                    fill
+                    className="object-cover object-center lg:object-right-top"
+                    priority
+                />
+                {/* Gradient Overlay for Text Readability */}
+                <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent lg:via-white/50" />
+                <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-transparent to-white/50" />
+            </div>
+
+            <div className="container mx-auto px-4 lg:px-8 relative z-10 pb-10 lg:pb-0 h-full flex items-center">
+                <div className="max-w-2xl pt-20 lg:pt-0">
                     {/* Badge */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-orange-500/10 border border-orange-500/20 rounded-full mb-6"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-orange-50/90 backdrop-blur-sm border border-orange-100 rounded-full mb-8 shadow-sm"
                     >
-                        <Shield className="w-4 h-4 text-orange-400" />
-                        <span className="text-orange-300 text-sm font-medium">ได้รับอนุญาตจากกระทรวงสาธารณสุข</span>
+                        <Shield className="w-4 h-4 text-orange-600" />
+                        <span className="text-orange-900 text-sm font-medium">บริการมาตรฐานสากล จันทบุรี ตราด เกาะช้าง</span>
                     </motion.div>
 
                     {/* Headline */}
@@ -42,11 +46,10 @@ export default function HeroSection() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.1 }}
-                        className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight mb-6 [-webkit-text-stroke:1px_#F97316]"
+                        className="text-4xl md:text-5xl lg:text-7xl font-bold text-gray-900 leading-[1.1] mb-6 tracking-tight drop-shadow-sm"
                     >
-                        กำจัดปลวก <span className="text-gradient-orange">ปลอดภัย</span>
-                        <br />
-                        ไร้กังวล ตลอด 24 ชม.
+                        บริการกำจัดปลวกและแมลง <br className="hidden md:block" />
+                        <span className="text-orange-600">มาตรฐานสากล</span>
                     </motion.h1>
 
                     {/* Subheadline */}
@@ -54,10 +57,9 @@ export default function HeroSection() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
-                        className="text-xl md:text-xl text-black mb-8 max-w-2xl leading-relaxed font-medium bg-white/20 backdrop-blur-[2px] p-0.2 rounded-xl md:bg-transparent md:backdrop-blur-none md:p-0 md:[-webkit-text-stroke:0.5px_#ffffff]"
+                        className="text-lg md:text-xl text-gray-700 mb-10 max-w-xl leading-relaxed font-light"
                     >
-                        บริการกำจัดปลวก แมลงสาบ ยุง และหนู ครบวงจร ด้วยวิธีที่ปลอดภัยต่อคนและสัตว์เลี้ยง
-                        พร้อมให้บริการพื้นที่ <span className="text-orange-400 font-medium">จันทบุรี ตราด ระยอง</span>
+                        ปกป้องบ้านและธุรกิจของคุณด้วยทีมงานผู้เชี่ยวชาญกว่า 10 ปี สำรวจพื้นที่ฟรีวันนี้ เข้าหน้างานไวใน 24 ชม. ดูแลครอบคลุม <span className="text-gray-900 font-medium">จันทบุรี ตราด เกาะช้าง</span>
                     </motion.p>
 
                     {/* Trust Badges */}
@@ -65,25 +67,25 @@ export default function HeroSection() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.3 }}
-                        className="flex flex-wrap gap-4 mb-10"
+                        className="flex flex-wrap gap-6 mb-10"
                     >
-                        <div className="flex items-center gap-2 text-gray-400">
-                            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-green-500/10">
-                                <Leaf className="w-4 h-4 text-green-400" />
+                        <div className="flex items-center gap-3 text-gray-700 bg-white/50 p-2 rounded-lg backdrop-blur-sm">
+                            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-green-50">
+                                <Leaf className="w-5 h-5 text-green-600" />
                             </div>
-                            <span className="text-sm">Eco-Friendly</span>
+                            <span className="text-base font-medium">สมุนไพรปลอดภัย</span>
                         </div>
-                        <div className="flex items-center gap-2 text-gray-400">
-                            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-500/10">
-                                <Shield className="w-4 h-4 text-blue-400" />
+                        <div className="flex items-center gap-3 text-gray-700 bg-white/50 p-2 rounded-lg backdrop-blur-sm">
+                            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-50">
+                                <Shield className="w-5 h-5 text-blue-600" />
                             </div>
-                            <span className="text-sm">ปลอดภัยต่อเด็กและสัตว์เลี้ยง</span>
+                            <span className="text-base font-medium">รับประกันผลงาน</span>
                         </div>
-                        <div className="flex items-center gap-2 text-gray-400">
-                            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-orange-500/10">
-                                <Clock className="w-4 h-4 text-orange-400" />
+                        <div className="flex items-center gap-3 text-gray-700 bg-white/50 p-2 rounded-lg backdrop-blur-sm">
+                            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-orange-50">
+                                <Clock className="w-5 h-5 text-orange-600" />
                             </div>
-                            <span className="text-sm">บริการ 24 ชั่วโมง</span>
+                            <span className="text-base font-medium">เข้าทำไวใน 24 ชม.</span>
                         </div>
                     </motion.div>
 
@@ -96,25 +98,26 @@ export default function HeroSection() {
                     >
                         <Button
                             size="lg"
-                            className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-lg px-8 py-6 shadow-xl shadow-orange-500/25 hover:shadow-orange-500/40 transition-all group"
+                            className="bg-orange-600 hover:bg-orange-700 text-white text-lg px-8 py-6 shadow-xl shadow-orange-500/20 transition-all group"
                             asChild
                         >
                             <a href="tel:0891234567">
                                 <Phone className="w-5 h-5 mr-2" />
-                                โทรเลย 089-123-4567
+                                โทรปรึกษาฟรี 089-123-4567
                                 <ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                             </a>
                         </Button>
                         <Button
                             size="lg"
-                            className="bg-[#06C755] text-white hover:bg-[#05b34c] text-lg px-8 py-6 shadow-xl shadow-green-500/25"
+                            variant="outline"
+                            className="bg-white/80 backdrop-blur-sm border-2 border-green-500 text-green-600 hover:bg-green-50 text-lg px-8 py-6"
                             asChild
                         >
                             <a href="https://line.me/ti/p/~rabbit-pest" target="_blank" rel="noopener noreferrer">
-                                <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                                <svg className="w-5 h-5 mr-2 fill-current" viewBox="0 0 24 24">
                                     <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.064-.021.136-.033.203-.033.211 0 .391.09.51.25l2.438 3.317V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
                                 </svg>
-                                เพิ่มเพื่อน Line
+                                แอด LINE ประเมินหน้างาน
                             </a>
                         </Button>
                     </motion.div>
@@ -128,11 +131,11 @@ export default function HeroSection() {
                 transition={{ delay: 1, duration: 0.5 }}
                 className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-2"
             >
-                <span className="text-gray-500 text-sm">เลื่อนลง</span>
+                <span className="text-gray-400 text-sm">เลื่อนลง</span>
                 <motion.div
                     animate={{ y: [0, 8, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
-                    className="w-6 h-10 rounded-full border-2 border-gray-600 flex items-start justify-center p-2"
+                    className="w-6 h-10 rounded-full border-2 border-gray-300 flex items-start justify-center p-2"
                 >
                     <div className="w-1 h-2 bg-orange-500 rounded-full" />
                 </motion.div>

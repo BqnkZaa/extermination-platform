@@ -47,6 +47,7 @@ export default function AboutPage() {
     return (
         <>
             {/* Hero Section */}
+            {/* Hero Section */}
             <section className="relative py-20 lg:py-32 bg-gradient-to-br from-gray-900 via-gray-800 to-black overflow-hidden">
                 <div className="absolute inset-0 opacity-10">
                     <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500 rounded-full blur-3xl" />
@@ -54,24 +55,42 @@ export default function AboutPage() {
                 </div>
 
                 <div className="container mx-auto px-4 lg:px-8 relative z-10">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="max-w-3xl"
-                    >
-                        <span className="inline-block px-4 py-1.5 bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm font-medium rounded-full mb-6">
-                            เกี่ยวกับเรา
-                        </span>
-                        <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6">
-                            ผู้เชี่ยวชาญด้านการกำจัดแมลง
-                            <span className="text-gradient-orange"> มากว่า 15 ปี</span>
-                        </h1>
-                        <p className="text-xl text-gray-300 leading-relaxed">
-                            Rabbit Pest Control ให้บริการกำจัดปลวก แมลงสาบ ยุง และหนู
-                            ด้วยทีมงานมืออาชีพที่มีประสบการณ์และความเชี่ยวชาญ
-                            พร้อมให้บริการตลอด 24 ชั่วโมงในพื้นที่ภาคตะวันออก
-                        </p>
-                    </motion.div>
+                    <div className="grid lg:grid-cols-2 gap-12 items-center">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="max-w-2xl"
+                        >
+                            <span className="inline-block px-4 py-1.5 bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm font-medium rounded-full mb-6">
+                                เกี่ยวกับเรา
+                            </span>
+                            <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6">
+                                ผู้เชี่ยวชาญด้านการกำจัดแมลง
+                                <span className="text-gradient-orange"> มากว่า 15 ปี</span>
+                            </h1>
+                            <p className="text-xl text-gray-300 leading-relaxed">
+                                Rabbit Pest Control ให้บริการกำจัดปลวก แมลงสาบ ยุง และหนู
+                                ด้วยทีมงานมืออาชีพที่มีประสบการณ์และความเชี่ยวชาญ
+                                พร้อมให้บริการตลอด 24 ชั่วโมงในพื้นที่ภาคตะวันออก
+                            </p>
+                        </motion.div>
+
+                        {/* Right Column: Hero Image */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            className="hidden lg:block relative"
+                        >
+                            <div className="relative z-10">
+                                <img
+                                    src="/images/hero_banner_transparent.png"
+                                    alt="Professional Pest Control Team"
+                                    className="w-full h-auto object-contain drop-shadow-2xl"
+                                />
+                            </div>
+                        </motion.div>
+                    </div>
                 </div>
             </section>
 
