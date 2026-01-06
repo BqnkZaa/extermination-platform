@@ -7,8 +7,8 @@ const defaultContact = {
     phone_display: '089-123-4567',
     phone_call: '0891234567',
     email: 'info@rabbitpestcontrol.net',
-    line_url: 'https://line.me/ti/p/~rabbit-pest',
-    line_id: '@rabbit-pest',
+    line_url: 'https://line.me/ti/p/~Bigheart.',
+    line_id: '@Bigheart.',
     google_sheet_url: 'https://docs.google.com/spreadsheets/', // Placeholder: Update this with the actual URL
     facebook_url: 'https://facebook.com',
     instagram_url: 'https://instagram.com',

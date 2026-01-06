@@ -72,11 +72,12 @@ export default function Navbar() {
                 Line
               </a>
             </Button>
-            <Button className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transition-all">
-              <button onClick={() => openPopup(contact.phone_call)} className="flex items-center">
-                <Phone className="w-4 h-4 mr-2" />
-                {contact.phone_display}
-              </button>
+            <Button
+              onClick={() => openPopup(contact.phone_call)}
+              className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transition-all"
+            >
+              <Phone className="w-4 h-4 mr-2" />
+              {contact.phone_display}
             </Button>
           </div>
 
