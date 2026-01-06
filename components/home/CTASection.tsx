@@ -4,9 +4,11 @@ import { motion } from 'framer-motion';
 import { Phone, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useContactInfo } from '@/hooks/useContactInfo';
+import { usePhonePopup } from '@/context/PhonePopupContext';
 
 export default function CTASection() {
     const { contact } = useContactInfo();
+    const { openPopup } = usePhonePopup();
     return (
         <section className="py-16 lg:py-24 bg-gradient-to-r from-orange-500 to-orange-600 relative overflow-hidden">
             {/* Background Pattern */}
@@ -46,11 +48,11 @@ export default function CTASection() {
                             className="bg-white text-orange-600 hover:bg-orange-50 text-lg px-8 py-6 shadow-xl group"
                             asChild
                         >
-                            <a href={contact.google_sheet_url} target="_blank" rel="noopener noreferrer">
+                            <button onClick={() => openPopup(contact.phone_call)} className="flex items-center">
                                 <Phone className="w-5 h-5 mr-2" />
                                 โทรเลย {contact.phone_display}
                                 <ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                            </a>
+                            </button>
                         </Button>
                         <Button
                             size="lg"

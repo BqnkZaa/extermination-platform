@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import CTASection from '@/components/home/CTASection';
 import { useContactInfo } from '@/hooks/useContactInfo';
+import { usePhonePopup } from '@/context/PhonePopupContext';
 
 const services = [
     {
@@ -127,6 +128,7 @@ const services = [
 
 export default function ServicesPage() {
     const { contact } = useContactInfo();
+    const { openPopup } = usePhonePopup();
     return (
         <>
             {/* Hero Section */}
@@ -229,11 +231,9 @@ export default function ServicesPage() {
                                             <p className="font-bold text-gray-900">{service.warranty}</p>
                                         </div>
                                     </div>
-                                    <Button className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white" asChild>
-                                        <Link href="/contact">
-                                            <Phone className="w-4 h-4 mr-2" />
-                                            ขอใบเสนอราคา
-                                        </Link>
+                                    <Button onClick={() => openPopup(contact.phone_call)} className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white">
+                                        <Phone className="w-4 h-4 mr-2" />
+                                        ขอใบเสนอราคา
                                     </Button>
                                 </div>
 

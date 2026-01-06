@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import MobileActionBar from "@/components/layout/MobileActionBar";
+import { PhonePopupProvider } from "@/context/PhonePopupContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -40,12 +41,14 @@ export default function RootLayout({
   return (
     <html lang="th">
       <body className={`${inter.variable} antialiased`}>
-        <Navbar />
-        <main className="min-h-screen pb-16 lg:pb-0">
-          {children}
-        </main>
-        <Footer />
-        <MobileActionBar />
+        <PhonePopupProvider>
+          <Navbar />
+          <main className="min-h-screen pb-16 lg:pb-0">
+            {children}
+          </main>
+          <Footer />
+          <MobileActionBar />
+        </PhonePopupProvider>
       </body>
     </html>
   );

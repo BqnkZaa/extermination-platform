@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from '@/com
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useContactInfo } from '@/hooks/useContactInfo';
+import { usePhonePopup } from '@/context/PhonePopupContext';
 
 const navLinks = [
   { href: '/', label: 'หน้าแรก', labelEn: 'Home' },
@@ -19,6 +20,7 @@ const navLinks = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { contact } = useContactInfo();
+  const { openPopup } = usePhonePopup();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
@@ -71,10 +73,10 @@ export default function Navbar() {
               </a>
             </Button>
             <Button className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transition-all">
-              <a href={contact.google_sheet_url} target="_blank" rel="noopener noreferrer" className="flex items-center">
+              <button onClick={() => openPopup(contact.phone_call)} className="flex items-center">
                 <Phone className="w-4 h-4 mr-2" />
                 {contact.phone_display}
-              </a>
+              </button>
             </Button>
           </div>
 
@@ -132,10 +134,10 @@ export default function Navbar() {
                   {/* Mobile CTA */}
                   <div className="mt-auto pt-6 space-y-3">
                     <Button className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white" asChild>
-                      <a href={contact.google_sheet_url} target="_blank" rel="noopener noreferrer">
+                      <button onClick={() => openPopup(contact.phone_call)} className="flex items-center justify-center w-full">
                         <Phone className="w-4 h-4 mr-2" />
                         โทรเลย {contact.phone_display}
-                      </a>
+                      </button>
                     </Button>
                     <Button variant="outline" className="w-full border-gray-300" asChild>
                       <a href={contact.line_url} target="_blank" rel="noopener noreferrer">

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Bug, Phone, Mail, MapPin, Clock, Facebook, Instagram } from 'lucide-react';
 import { useContactInfo } from '@/hooks/useContactInfo';
+import { usePhonePopup } from '@/context/PhonePopupContext';
 
 const footerLinks = {
     services: [
@@ -26,6 +27,7 @@ const footerLinks = {
 
 export default function Footer() {
     const { contact } = useContactInfo();
+    const { openPopup } = usePhonePopup();
 
     return (
         <footer className="bg-gradient-to-b from-gray-900 to-black text-white">
@@ -137,9 +139,9 @@ export default function Footer() {
                                 </div>
                                 <div>
                                     <p className="text-gray-400 text-xs mb-1">โทรศัพท์</p>
-                                    <a href={`tel:${contact.phone_call}`} className="text-white font-medium hover:text-orange-400 transition-colors">
+                                    <button onClick={() => openPopup(contact.phone_call)} className="text-white font-medium hover:text-orange-400 transition-colors text-left">
                                         {contact.phone_display}
-                                    </a>
+                                    </button>
                                 </div>
                             </li>
                             <li className="flex items-start gap-3">

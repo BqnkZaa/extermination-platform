@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useContactInfo } from '@/hooks/useContactInfo';
+import { usePhonePopup } from '@/context/PhonePopupContext';
 
 const contactSchema = z.object({
     name: z.string().min(2, 'กรุณากรอกชื่อ-นามสกุล'),
@@ -46,6 +47,7 @@ export default function ContactPage() {
     });
 
     const { contact } = useContactInfo();
+    const { openPopup } = usePhonePopup();
 
     const contactInfoItems = [
         {
@@ -174,21 +176,39 @@ export default function ContactPage() {
                                         transition={{ delay: index * 0.1 }}
                                     >
                                         {item.href ? (
-                                            <a
-                                                href={item.href}
-                                                className="block p-5 bg-gray-50 rounded-xl hover:bg-orange-50 hover:border-orange-200 border border-transparent transition-colors group"
-                                            >
-                                                <div className="flex items-center gap-3 mb-2">
-                                                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-orange-100 text-orange-600 group-hover:bg-orange-500 group-hover:text-white transition-colors">
-                                                        <item.icon className="w-5 h-5" />
+                                            item.href.startsWith('tel:') ? (
+                                                <button
+                                                    onClick={() => openPopup(contact.phone_call)}
+                                                    className="block w-full text-left p-5 bg-gray-50 rounded-xl hover:bg-orange-50 hover:border-orange-200 border border-transparent transition-colors group"
+                                                >
+                                                    <div className="flex items-center gap-3 mb-2">
+                                                        <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-orange-100 text-orange-600 group-hover:bg-orange-500 group-hover:text-white transition-colors">
+                                                            <item.icon className="w-5 h-5" />
+                                                        </div>
+                                                        <div className="text-sm text-gray-500">{item.title}</div>
                                                     </div>
-                                                    <div className="text-sm text-gray-500">{item.title}</div>
-                                                </div>
-                                                <div className="font-bold text-gray-900 group-hover:text-orange-600 transition-colors">
-                                                    {item.value}
-                                                </div>
-                                                <div className="text-xs text-gray-500 mt-1">{item.description}</div>
-                                            </a>
+                                                    <div className="font-bold text-gray-900 group-hover:text-orange-600 transition-colors">
+                                                        {item.value}
+                                                    </div>
+                                                    <div className="text-xs text-gray-500 mt-1">{item.description}</div>
+                                                </button>
+                                            ) : (
+                                                <a
+                                                    href={item.href}
+                                                    className="block p-5 bg-gray-50 rounded-xl hover:bg-orange-50 hover:border-orange-200 border border-transparent transition-colors group"
+                                                >
+                                                    <div className="flex items-center gap-3 mb-2">
+                                                        <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-orange-100 text-orange-600 group-hover:bg-orange-500 group-hover:text-white transition-colors">
+                                                            <item.icon className="w-5 h-5" />
+                                                        </div>
+                                                        <div className="text-sm text-gray-500">{item.title}</div>
+                                                    </div>
+                                                    <div className="font-bold text-gray-900 group-hover:text-orange-600 transition-colors">
+                                                        {item.value}
+                                                    </div>
+                                                    <div className="text-xs text-gray-500 mt-1">{item.description}</div>
+                                                </a>
+                                            )
                                         ) : (
                                             <div className="p-5 bg-gray-50 rounded-xl border border-transparent">
                                                 <div className="flex items-center gap-3 mb-2">

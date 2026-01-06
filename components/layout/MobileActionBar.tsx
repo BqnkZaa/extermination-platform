@@ -2,9 +2,11 @@
 
 import { Phone, MessageCircle } from 'lucide-react';
 import { useContactInfo } from '@/hooks/useContactInfo';
+import { usePhonePopup } from '@/context/PhonePopupContext';
 
 export default function MobileActionBar() {
     const { contact } = useContactInfo();
+    const { openPopup } = usePhonePopup();
 
     return (
         <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-white border-t border-gray-200 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
@@ -23,13 +25,14 @@ export default function MobileActionBar() {
                 </a>
 
                 {/* Call Button */}
-                <a
-                    href={`tel:${contact.phone_call}`}
-                    className="flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium hover:from-orange-600 hover:to-orange-700 transition-all active:scale-95"
+                {/* Call Button */}
+                <button
+                    onClick={() => openPopup(contact.phone_call)}
+                    className="flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium hover:from-orange-600 hover:to-orange-700 transition-all active:scale-95 w-full"
                 >
                     <Phone className="h-5 w-5" />
                     <span>โทรปรึกษาด่วน</span>
-                </a>
+                </button>
             </div>
         </div>
     );

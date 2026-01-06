@@ -5,9 +5,11 @@ import { Phone, Shield, Clock, Leaf, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { useContactInfo } from '@/hooks/useContactInfo';
+import { usePhonePopup } from '@/context/PhonePopupContext';
 
 export default function HeroSection() {
     const { contact } = useContactInfo();
+    const { openPopup } = usePhonePopup();
     return (
         <section className="relative min-h-[90vh] lg:min-h-[85vh] flex items-center overflow-hidden bg-white">
             {/* Background Pattern */}
@@ -103,11 +105,11 @@ export default function HeroSection() {
                             className="bg-orange-600 hover:bg-orange-700 text-white text-base px-6 py-3 h-auto shadow-lg shadow-orange-500/20 transition-all group"
                             asChild
                         >
-                            <a href={contact.google_sheet_url} target="_blank" rel="noopener noreferrer">
+                            <button onClick={() => openPopup(contact.phone_call)} className="flex items-center">
                                 <Phone className="w-4 h-4 mr-2" />
                                 โทรปรึกษาฟรี {contact.phone_display}
                                 <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                            </a>
+                            </button>
                         </Button>
                         <Button
                             size="lg"
